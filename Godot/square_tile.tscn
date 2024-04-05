@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3aipd4sr25fe"]
-
-[ext_resource type="PackedScene" uid="uid://cnthx1pwaxuy8" path="res://SquareTile.glb" id="1_m55sc"]
-
-[node name="SquareTile" instance=ExtResource("1_m55sc")]
