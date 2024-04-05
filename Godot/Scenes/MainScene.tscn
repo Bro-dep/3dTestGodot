@@ -1,8 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://bw8pptkw0tfbh"]
+[gd_scene load_steps=12 format=3 uid="uid://bw8pptkw0tfbh"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_phtv7"]
-[ext_resource type="BoxMesh" uid="uid://dvsca65tbq52p" path="res://Materials/Dash.tres" id="2_vi6cv"]
-[ext_resource type="BoxMesh" uid="uid://dqj3g7uukkgk4" path="res://Materials/DashUsed.tres" id="3_5eif7"]
+[ext_resource type="PackedScene" uid="uid://clt2howwt3sbi" path="res://Scenes/player_char.tscn" id="1_kydry"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1tkc"]
 sky_top_color = Color(0.368627, 0.596078, 0.760784, 1)
@@ -38,10 +36,6 @@ data = PackedVector3Array(-1, 0.5, 1, 1, 0.5, 1, -1, -0.5, 1, 1, 0.5, 1, 1, -0.5
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7ldqo"]
 data = PackedVector3Array(-1, 0.5, 1, 1, 0.5, 1, -1, -0.5, 1, 1, 0.5, 1, 1, -0.5, 1, -1, -0.5, 1, 1, 0.5, -1, -1, 0.5, -1, 1, -0.5, -1, -1, 0.5, -1, -1, -0.5, -1, 1, -0.5, -1, 1, 0.5, 1, 1, 0.5, -1, 1, -0.5, 1, 1, 0.5, -1, 1, -0.5, -1, 1, -0.5, 1, -1, 0.5, -1, -1, 0.5, 1, -1, -0.5, -1, -1, 0.5, 1, -1, -0.5, 1, -1, -0.5, -1, 1, 0.5, 1, -1, 0.5, 1, 1, 0.5, -1, -1, 0.5, 1, -1, 0.5, -1, 1, 0.5, -1, -1, -0.5, 1, 1, -0.5, 1, -1, -0.5, -1, 1, -0.5, 1, 1, -0.5, -1, -1, -0.5, -1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5in6f"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lfof7"]
 
 [node name="Main Scene" type="Node3D"]
 
@@ -96,28 +90,5 @@ mesh = SubResource("BoxMesh_smyer")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/MeshInstance3D4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7ldqo")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00392342, 1.7411, -0.00866985)
-script = ExtResource("1_phtv7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("CapsuleMesh_5in6f")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_lfof7")
-
-[node name="Dash_Ind" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879495, -0.241782)
-mesh = ExtResource("2_vi6cv")
-
-[node name="Dash_IndUsed" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879495, -0.241782)
-visible = false
-mesh = ExtResource("3_5eif7")
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.919135, 0.393942, 0, -0.393942, 0.919135, 0, 0, 0)
-spring_length = 5.0
-
-[node name="Camera3D" type="Camera3D" parent="Player/SpringArm3D"]
-fov = 90.0
+[node name="PlayerChar" parent="." instance=ExtResource("1_kydry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00303745, 1.1871, -0.000992775)

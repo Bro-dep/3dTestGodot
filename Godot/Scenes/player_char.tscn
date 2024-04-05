@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://clt2howwt3sbi"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_dr7y2"]
+[ext_resource type="BoxMesh" uid="uid://dvsca65tbq52p" path="res://Materials/Dash.tres" id="2_avj50"]
+[ext_resource type="BoxMesh" uid="uid://dqj3g7uukkgk4" path="res://Materials/DashUsed.tres" id="3_eo5e6"]
+[ext_resource type="Script" path="res://Scenes/PlayerSpringArm.gd" id="4_16q6s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5in6f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lfof7"]
+
+[sub_resource type="GDScript" id="GDScript_a6evt"]
+script/source = "extends Camera3D
+
+var target: Object = get_parent()
+@export var smooth_speed: float 
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="PlayerChar" type="CharacterBody3D"]
+script = ExtResource("1_dr7y2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_5in6f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_lfof7")
+
+[node name="Dash_Ind" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879495, -0.241782)
+mesh = ExtResource("2_avj50")
+
+[node name="Dash_IndUsed" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.879495, -0.241782)
+visible = false
+mesh = ExtResource("3_eo5e6")
+
+[node name="TargetPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PlayerSpringArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, 0, 1, 0)
+top_level = true
+collision_mask = 0
+spring_length = 8.0
+script = ExtResource("4_16q6s")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerSpringArm"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
+script = SubResource("GDScript_a6evt")
