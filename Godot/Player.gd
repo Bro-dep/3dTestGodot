@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 6
+const JUMP_VELOCITY = 6.0
 
 @onready var dashMesh = $"Dash_Ind"
 @onready var usedDashMesh = $"Dash_IndUsed"
@@ -15,6 +15,9 @@ const JUMP_VELOCITY = 6
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var paused = false
+
 
 
 var dashCooldown = true
@@ -116,7 +119,7 @@ func _physics_process(delta):
 	#Slam
 	if Input.is_action_just_pressed("Slam") and !is_on_floor():
 			slamJump = true
-			print("Slam Jump is = ",slamJump)
+			#print("Slam Jump is = ",slamJump)
 			velocity.y = move_toward(velocity.y,-30,30)
 			
 			
@@ -124,7 +127,7 @@ func _physics_process(delta):
 	# Handle jump.
 	#Slam jump
 	if Input.is_action_just_pressed("Jump") and slamJump and is_on_floor():
-		print("SlamJumped!")
+		#print("SlamJumped!")
 		velocity.y += lerp(velocity.y,5.0,3)
 		jumpTimer.start()
 		slamJump = false
@@ -135,12 +138,13 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY/2
 		jumpTimer.start()
 	#hold jump
-	if Input.is_action_pressed("Jump") and canHoldJump and slamTimer.is_stopped():
-		
+	elif Input.is_action_pressed("Jump") and canHoldJump and slamTimer.is_stopped() and !jumpTimer.is_stopped():
+		print("HoldJump")
 		velocity.y += lerp(velocity.y,.25,.99)
 	#Wall Jump
 	if Input.is_action_pressed("Jump") and !UsedonWall and is_on_wall():
 		#inital velocity
+		print("WallJump")
 		canMove = false
 		moveLockTimer.start()
 		velocity.y = JUMP_VELOCITY
@@ -152,10 +156,15 @@ func _physics_process(delta):
 	#wall jump hold
 	if Input.is_action_pressed("Jump") and canWallJump:
 		#lerp based on hold
-		velocity.x += lerp(velocity.x,checkRayCast().x * 5,1)
-		velocity.z += lerp(velocity.z,checkRayCast().z * 5,1)
+		print("WallJumpHold")
+		if wallJumpTimer.wait_time == 0:
+			wallJumpTimer.start()
+		if wallJumpTimer.wait_time > 0:
+			velocity.x += lerp(velocity.x,checkRayCast().x * 5,1)
+			velocity.z += lerp(velocity.z,checkRayCast().z * 5,1)
 	#Double Jump
-	if Input.is_action_just_pressed("Jump") and doubleJump and slamTimer.is_stopped():
+	if Input.is_action_just_pressed("Jump") and doubleJump and slamTimer.is_stopped() and !canWallJump:
+		print("doubleJump")
 		velocity.y = JUMP_VELOCITY
 		doubleJump = false
 	if is_on_floor():
@@ -166,23 +175,27 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+
+
 #Camera Collisions
 func _on_area_3d_1_body_entered(body):
-	var camRot = Vector3(0,90,0)
-	playerSelf.set_rotation_degrees(camRot)
+	if body == self:
+		var camRot = Vector3(0,90,0)
+		print_debug("debug")
+		playerSelf.set_rotation_degrees(camRot)
 	
-func _on_area_3d_2_body_entered(body):
+func _on_area_3d_2_body_entered(_body):
 	var camRot = Vector3(0,0,0)
 	playerSelf.set_rotation_degrees(camRot)
 	
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(_body):
 	var camRot = Vector3(0,270,0)
 	playerSelf.set_rotation_degrees(camRot)
 
-func _on_area_3d_3_body_entered(body):
+func _on_area_3d_3_body_entered(_body):
 	var camRot = Vector3(0,0,0)
 	playerSelf.set_rotation_degrees(camRot)
 
-func _on_area_3d_4_body_entered(body):
+func _on_area_3d_4_body_entered(_body):
 	var camRot = Vector3(0,180,0)
 	playerSelf.set_rotation_degrees(camRot)
