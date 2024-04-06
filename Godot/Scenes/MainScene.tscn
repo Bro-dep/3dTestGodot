@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bw8pptkw0tfbh"]
+[gd_scene load_steps=28 format=3 uid="uid://bw8pptkw0tfbh"]
 
 [ext_resource type="PackedScene" uid="uid://clt2howwt3sbi" path="res://Scenes/player_char.tscn" id="1_kydry"]
 
@@ -69,6 +69,21 @@ size = Vector3(3.165, 0.51, 3.18)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aaf3g"]
 data = PackedVector3Array(-1.5825, 0.255, 1.59, 1.5825, 0.255, 1.59, -1.5825, -0.255, 1.59, 1.5825, 0.255, 1.59, 1.5825, -0.255, 1.59, -1.5825, -0.255, 1.59, 1.5825, 0.255, -1.59, -1.5825, 0.255, -1.59, 1.5825, -0.255, -1.59, -1.5825, 0.255, -1.59, -1.5825, -0.255, -1.59, 1.5825, -0.255, -1.59, 1.5825, 0.255, 1.59, 1.5825, 0.255, -1.59, 1.5825, -0.255, 1.59, 1.5825, 0.255, -1.59, 1.5825, -0.255, -1.59, 1.5825, -0.255, 1.59, -1.5825, 0.255, -1.59, -1.5825, 0.255, 1.59, -1.5825, -0.255, -1.59, -1.5825, 0.255, 1.59, -1.5825, -0.255, 1.59, -1.5825, -0.255, -1.59, 1.5825, 0.255, 1.59, -1.5825, 0.255, 1.59, 1.5825, 0.255, -1.59, -1.5825, 0.255, 1.59, -1.5825, 0.255, -1.59, 1.5825, 0.255, -1.59, -1.5825, -0.255, 1.59, 1.5825, -0.255, 1.59, -1.5825, -0.255, -1.59, 1.5825, -0.255, 1.59, 1.5825, -0.255, -1.59, -1.5825, -0.255, -1.59)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1w7f2"]
+size = Vector3(10.4652, 17.9529, 10.5002)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fs4w5"]
+size = Vector3(6.36487, 8.07715, 18.9788)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_845v1"]
+size = Vector3(18.8678, 15.1628, 4.99426)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlsi6"]
+size = Vector3(16.0828, 29.8324, 6.07983)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nxp24"]
+size = Vector3(4.50687, 1.03055, 38.2299)
 
 [node name="Main Scene" type="Node3D"]
 
@@ -286,3 +301,46 @@ mesh = SubResource("BoxMesh_7kamx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Test parkour area/MeshInstance3D14/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_aaf3g")
+
+[node name="Camera Collisions" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.978, 7.15145, -22.2891)
+
+[node name="Area3D1" type="Area3D" parent="Camera Collisions"]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera Collisions/Area3D1"]
+shape = SubResource("BoxShape3D_1w7f2")
+
+[node name="Area3D2" type="Area3D" parent="Camera Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.01441, -10.9671)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera Collisions/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.36003, 0.341309, -3.93518)
+shape = SubResource("BoxShape3D_fs4w5")
+
+[node name="Area3D" type="Area3D" parent="Camera Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.247, 3.42872, -29.5125)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera Collisions/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0381, -4.28313, -0.0204468)
+shape = SubResource("BoxShape3D_845v1")
+
+[node name="Area3D3" type="Area3D" parent="Camera Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18.1528)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera Collisions/Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9898, 18.6041, -10.7005)
+shape = SubResource("BoxShape3D_dlsi6")
+
+[node name="Area3D4" type="Area3D" parent="Camera Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0714, 17.2851, -28.8281)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera Collisions/Area3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83202, 0.340042, 15.905)
+shape = SubResource("BoxShape3D_nxp24")
+
+[connection signal="body_entered" from="Camera Collisions/Area3D1" to="PlayerChar" method="_on_area_3d_1_body_entered"]
+[connection signal="body_entered" from="Camera Collisions/Area3D2" to="PlayerChar" method="_on_area_3d_2_body_entered"]
+[connection signal="body_entered" from="Camera Collisions/Area3D" to="PlayerChar" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Camera Collisions/Area3D3" to="PlayerChar" method="_on_area_3d_3_body_entered"]
+[connection signal="body_entered" from="Camera Collisions/Area3D4" to="PlayerChar" method="_on_area_3d_4_body_entered"]

@@ -60,8 +60,7 @@ func _physics_process(delta):
 		UsedonWall = false
 
 	
-	
-	#rotates camera
+	#rotates camera Debug
 	if Input.is_action_just_pressed("CamLeft"):
 		held = true
 		#print("CamLeftPressed")
@@ -166,3 +165,24 @@ func _physics_process(delta):
 		slamTimer.start()
 	
 	move_and_slide()
+
+#Camera Collisions
+func _on_area_3d_1_body_entered(body):
+	var camRot = Vector3(0,90,0)
+	playerSelf.set_rotation_degrees(camRot)
+	
+func _on_area_3d_2_body_entered(body):
+	var camRot = Vector3(0,0,0)
+	playerSelf.set_rotation_degrees(camRot)
+	
+func _on_area_3d_body_entered(body):
+	var camRot = Vector3(0,270,0)
+	playerSelf.set_rotation_degrees(camRot)
+
+func _on_area_3d_3_body_entered(body):
+	var camRot = Vector3(0,0,0)
+	playerSelf.set_rotation_degrees(camRot)
+
+func _on_area_3d_4_body_entered(body):
+	var camRot = Vector3(0,180,0)
+	playerSelf.set_rotation_degrees(camRot)
