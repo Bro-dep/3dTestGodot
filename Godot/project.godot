@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="3DTest"
+config/name="Reach The Stars"
+config/version="0.0.2-alpha"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Images/ScChar.png"
+config/windows_native_icon="res://Images/ScChar.ico"
 
 [input]
 
