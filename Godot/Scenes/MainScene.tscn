@@ -358,13 +358,13 @@ shape = SubResource("BoxShape3D_nxp24")
 
 [node name="Scene Manager" parent="." instance=ExtResource("2_rxgyx")]
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Image test" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Image test"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 15.4698, 5.44168, -18.8306)
 mesh = SubResource("PlaneMesh_20w7d")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Image test"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 17.8953, 5.44168, -18.8306)
 mesh = SubResource("PlaneMesh_5l8pr")
 
