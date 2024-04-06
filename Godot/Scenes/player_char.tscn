@@ -9,25 +9,13 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lfof7"]
 
-[sub_resource type="GDScript" id="GDScript_a6evt"]
-script/source = "extends Camera3D
-
-var target: Object = get_parent()
-@export var smooth_speed: float 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
+[sub_resource type="SphereShape3D" id="SphereShape3D_7xwxk"]
 
 [node name="PlayerChar" type="CharacterBody3D"]
 script = ExtResource("1_dr7y2")
+
+[node name="WallJumpRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_5in6f")
@@ -50,10 +38,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="PlayerSpringArm" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, 0, 1, 0)
 top_level = true
-collision_mask = 0
+shape = SubResource("SphereShape3D_7xwxk")
 spring_length = 8.0
 script = ExtResource("4_16q6s")
 
 [node name="Camera3D" type="Camera3D" parent="PlayerSpringArm"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
-script = SubResource("GDScript_a6evt")
+
+[node name="Slam Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="WallJumpTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LockMove" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="Slam Timer" to="." method="_on_slam_timer_timeout"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="WallJumpTimer" to="." method="_on_wall_jump_timer_timeout"]
+[connection signal="timeout" from="LockMove" to="." method="_on_lock_move_timeout"]
