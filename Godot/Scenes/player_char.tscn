@@ -1,11 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://clt2howwt3sbi"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_dr7y2"]
+[ext_resource type="ArrayMesh" uid="uid://h2g308lqomn5" path="res://PlayerModel/MainCharModel.tres" id="2_0onjm"]
 [ext_resource type="BoxMesh" uid="uid://dvsca65tbq52p" path="res://Materials/Dash.tres" id="2_avj50"]
 [ext_resource type="BoxMesh" uid="uid://dqj3g7uukkgk4" path="res://Materials/DashUsed.tres" id="3_eo5e6"]
 [ext_resource type="Script" path="res://Scenes/PlayerSpringArm.gd" id="4_16q6s"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5in6f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lfof7"]
 
@@ -17,8 +16,9 @@ script = ExtResource("1_dr7y2")
 [node name="WallJumpRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_5in6f")
+[node name="CharModel" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.42, 0, -3.67176e-08, 0, 0.42, 0, 3.67176e-08, 0, -0.42, 0, 1.22, 0)
+mesh = ExtResource("2_0onjm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_lfof7")

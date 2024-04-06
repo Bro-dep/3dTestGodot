@@ -12,6 +12,7 @@ const JUMP_VELOCITY = 6.0
 @onready var jumpTimer = $"JumpTimer"
 @onready var wallJumpTimer = $"WallJumpTimer"
 @onready var moveLockTimer = $"LockMove"
+@onready var model = $"CharModel"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -29,6 +30,7 @@ var UsedonWall = false
 var canHoldJump: bool = true
 var canWallJump = false
 var canMove = true
+var faceingZ = true
 
 var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
 var input_z = Input.get_axis("Slam","Jump")
@@ -91,6 +93,53 @@ func _physics_process(delta):
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		wallJumpRay.target_position = direction
+		print(faceingZ)
+		print(direction)
+		print(model.rotation_degrees)
+		if faceingZ:
+			print("facingZCode")
+			if direction.x == 1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 90
+			if direction.x == -1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 270
+			if direction.z == -1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 180
+			if direction.z == 1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 0
+			elif direction.x > 0 and direction.z > 0:
+				#print("backRight")
+				model.rotation_degrees.y = self.rotation_degrees.y +45
+			elif direction.x > 0 and direction.z < 0:
+				#print("frontright")
+				model.rotation_degrees.y = self.rotation_degrees.y + 135
+			elif direction.x < 0 and direction.z < 0:
+				#print("Frontleft")
+				model.rotation_degrees.y = self.rotation_degrees.y + 225
+			elif direction.x < 0 and direction.z > 0:
+				#print("backLeft")
+				model.rotation_degrees.y = self.rotation_degrees.y + 315
+		elif !faceingZ:
+			print("NotfacingZCode")
+			if direction.x == 1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 270
+			if direction.x == -1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 90
+			if direction.z == -1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 0
+			if direction.z == 1:
+				model.rotation_degrees.y = self.rotation_degrees.y + 180
+			'elif direction.x > 0 and direction.z > 0:
+				print("backRight")
+				model.rotation_degrees.y = self.rotation_degrees.y + 225
+			elif direction.x > 0 and direction.z < 0:
+				print("frontright")
+				model.rotation_degrees.y = self.rotation_degrees.y + 315
+			elif direction.x < 0 and direction.z < 0:
+				print("Frontleft")
+				model.rotation_degrees.y = self.rotation_degrees.y + 45
+			elif direction.x < 0 and direction.z > 0:
+				print("backLeft")
+				model.rotation_degrees.y = self.rotation_degrees.y + 135'
 	
 		if Input.is_action_just_pressed("Dash") and dashCooldown:
 			dashing = true
@@ -180,22 +229,29 @@ func _physics_process(delta):
 #Camera Collisions
 func _on_area_3d_1_body_entered(body):
 	if body == self:
+		faceingZ = false
+		print("Facing z: ",faceingZ)
 		var camRot = Vector3(0,90,0)
 		print_debug("debug")
 		playerSelf.set_rotation_degrees(camRot)
 	
 func _on_area_3d_2_body_entered(_body):
+	faceingZ = true
+	print("Facing z: ", faceingZ)
 	var camRot = Vector3(0,0,0)
 	playerSelf.set_rotation_degrees(camRot)
 	
 func _on_area_3d_body_entered(_body):
+	faceingZ = false
 	var camRot = Vector3(0,270,0)
 	playerSelf.set_rotation_degrees(camRot)
 
 func _on_area_3d_3_body_entered(_body):
+	faceingZ = true
 	var camRot = Vector3(0,0,0)
 	playerSelf.set_rotation_degrees(camRot)
 
 func _on_area_3d_4_body_entered(_body):
+	faceingZ = true
 	var camRot = Vector3(0,180,0)
 	playerSelf.set_rotation_degrees(camRot)
