@@ -50,4 +50,39 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play"
 
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -478.0
+offset_top = -116.0
+offset_right = -43.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect2"]
+light_mask = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -62.0
+offset_right = 214.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls:
+Movement: wasd
+Shift: Dash
+left Ctrl: Ground Slam
+Left Click and Right Click: Debug camera movement"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
