@@ -357,6 +357,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83202, 0.340042, 15.905)
 shape = SubResource("BoxShape3D_nxp24")
 
 [node name="Scene Manager" parent="." instance=ExtResource("2_rxgyx")]
+Path = "res://Scenes/pause_menu.tscn"
 
 [node name="Image test" type="Node3D" parent="."]
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://clt2howwt3sbi"]
+[gd_scene load_steps=9 format=3 uid="uid://clt2howwt3sbi"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_dr7y2"]
 [ext_resource type="ArrayMesh" uid="uid://h2g308lqomn5" path="res://PlayerModel/MainCharModel.tres" id="2_0onjm"]
 [ext_resource type="BoxMesh" uid="uid://dvsca65tbq52p" path="res://Materials/Dash.tres" id="2_avj50"]
 [ext_resource type="BoxMesh" uid="uid://dqj3g7uukkgk4" path="res://Materials/DashUsed.tres" id="3_eo5e6"]
 [ext_resource type="Script" path="res://Scenes/PlayerSpringArm.gd" id="4_16q6s"]
+[ext_resource type="PackedScene" uid="uid://d2dehisq8risa" path="res://Scenes/pause_menu.tscn" id="6_mqyr7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lfof7"]
 
@@ -58,6 +59,8 @@ one_shot = true
 [node name="LockMove" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_mqyr7")]
 
 [connection signal="timeout" from="Slam Timer" to="." method="_on_slam_timer_timeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

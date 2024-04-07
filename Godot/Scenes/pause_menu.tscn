@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2dehisq8risa"]
+
+[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_tcy6l"]
+
+[sub_resource type="Theme" id="Theme_b2pha"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_om3k3"]
+default_font_size = 50
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tcy6l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 645.0
+color = Color(0.0901961, 0.521569, 1, 0.431373)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -79.0
+offset_right = 101.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ButtonResume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_b2pha")
+text = "Resume"
+
+[node name="ButtonQuit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_om3k3")
+text = "Quit"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -468.0
+offset_top = -244.0
+offset_right = -33.0
+offset_bottom = -68.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 4
+color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect2"]
+light_mask = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -77.0
+offset_right = 214.0
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls:
+Movement: wasd
+Shift: Dash
+left Ctrl: Ground Slam
+Esc: Pause Menu
+Left Click and Right Click: Debug camera movement
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonResume" to="." method="_on_button_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

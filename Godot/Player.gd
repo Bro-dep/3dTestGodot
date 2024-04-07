@@ -13,6 +13,7 @@ const JUMP_VELOCITY = 6.0
 @onready var wallJumpTimer = $"WallJumpTimer"
 @onready var moveLockTimer = $"LockMove"
 @onready var model = $"CharModel"
+@onready var pause_Menu = $PauseMenu
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -221,6 +222,11 @@ func _physics_process(delta):
 		canHoldJump = true
 	if is_on_floor() and slamJump and slamTimer.is_stopped():
 		slamTimer.start()
+	
+	#PauseMenu
+	if Input.is_action_just_pressed("Esc"):
+		pause_Menu.pauseMenu()
+	
 	
 	move_and_slide()
 
