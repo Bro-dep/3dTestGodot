@@ -97,6 +97,9 @@ data = PackedVector3Array(2.5, 0, 5, -2.5, 0, 5, 2.5, 0, -5, -2.5, 0, 5, -2.5, 0
 transparency = 1
 albedo_texture = ExtResource("4_d61i4")
 normal_scale = -4.35
+grow_amount = 0.415
+point_size = 128.0
+distance_fade_max_distance = 4.8
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gdde2"]
 material = SubResource("StandardMaterial3D_f0n5g")
@@ -252,7 +255,7 @@ mesh = SubResource("PlaneMesh_hb2x7")
 shape = SubResource("ConcavePolygonShape3D_xns52")
 
 [node name="ForeGround" type="MeshInstance3D" parent="Area1/Basic Block"]
-transform = Transform3D(0.999999, -0.000202494, -0.00129237, -0.00129238, -4.73559e-05, -0.999999, 0.000202435, 1, -4.76108e-05, 0, 0, 1.0073)
+transform = Transform3D(0.999999, -0.000202494, -0.00129237, -0.00129238, -4.73559e-05, -0.999999, 0.000202435, 1, -4.76108e-05, -4.3869e-05, 0.0289493, 1.00828)
 mesh = SubResource("PlaneMesh_gdde2")
 
 [connection signal="body_entered" from="Area1/Section2/SignTest/Area3DSIgnTest" to="Area1/Section2/SignTest" method="_on_area_3ds_ign_test_body_entered"]
