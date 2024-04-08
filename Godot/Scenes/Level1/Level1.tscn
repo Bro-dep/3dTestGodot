@@ -88,6 +88,7 @@ shadow_enabled = true
 
 [node name="PlayerChar" parent="." instance=ExtResource("1_ljels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.271, 0)
+twoDMode = true
 
 [node name="Area1" type="Node3D" parent="."]
 
@@ -171,7 +172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96049, 0)
 shape = SubResource("SphereShape3D_s0a7t")
 
 [node name="3dText" parent="Area1/Section2/SignTest" instance=ExtResource("3_sur7t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72716, -0.363712)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.99286, -0.363712)
 texture = SubResource("ViewportTexture_7bteg")
 text_file_location = "res://Scenes/Level1/TextFiles/Sign1.txt"
 
