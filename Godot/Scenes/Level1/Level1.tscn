@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://xfc7ponoyqm"]
+[gd_scene load_steps=32 format=3 uid="uid://xfc7ponoyqm"]
 
 [ext_resource type="PackedScene" uid="uid://clt2howwt3sbi" path="res://Scenes/player_char.tscn" id="1_ljels"]
 [ext_resource type="Script" path="res://Scenes/Level1/SignTest.gd" id="2_f8i16"]
 [ext_resource type="PackedScene" uid="uid://b6xo1g7jwp15i" path="res://Tools/3d_text/3d_text.tscn" id="3_sur7t"]
+[ext_resource type="Texture2D" uid="uid://wb0vdew7n5vo" path="res://Images/Foreground1Texture.png" id="4_d61i4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eafgo"]
 sky_top_color = Color(0.364706, 0.584314, 0.823529, 1)
@@ -76,6 +77,30 @@ size = Vector3(0.5, 0.15, 0.15)
 top_radius = 0.085
 bottom_radius = 0.085
 height = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_n5i3h"]
+size = Vector3(5, 0.5, 2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_j0kny"]
+data = PackedVector3Array(-2.5, 0.25, 1, 2.5, 0.25, 1, -2.5, -0.25, 1, 2.5, 0.25, 1, 2.5, -0.25, 1, -2.5, -0.25, 1, 2.5, 0.25, -1, -2.5, 0.25, -1, 2.5, -0.25, -1, -2.5, 0.25, -1, -2.5, -0.25, -1, 2.5, -0.25, -1, 2.5, 0.25, 1, 2.5, 0.25, -1, 2.5, -0.25, 1, 2.5, 0.25, -1, 2.5, -0.25, -1, 2.5, -0.25, 1, -2.5, 0.25, -1, -2.5, 0.25, 1, -2.5, -0.25, -1, -2.5, 0.25, 1, -2.5, -0.25, 1, -2.5, -0.25, -1, 2.5, 0.25, 1, -2.5, 0.25, 1, 2.5, 0.25, -1, -2.5, 0.25, 1, -2.5, 0.25, -1, 2.5, 0.25, -1, -2.5, -0.25, 1, 2.5, -0.25, 1, -2.5, -0.25, -1, 2.5, -0.25, 1, 2.5, -0.25, -1, -2.5, -0.25, -1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hb2x7"]
+size = Vector2(5, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u76pe"]
+data = PackedVector3Array(2.5, 0, 5, -2.5, 0, 5, 2.5, 0, -5, -2.5, 0, 5, -2.5, 0, -5, 2.5, 0, -5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xns52"]
+data = PackedVector3Array(2.5, 0, 5, -2.5, 0, 5, 2.5, 0, -5, -2.5, 0, 5, -2.5, 0, -5, 2.5, 0, -5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0n5g"]
+transparency = 1
+albedo_texture = ExtResource("4_d61i4")
+normal_scale = -4.35
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gdde2"]
+material = SubResource("StandardMaterial3D_f0n5g")
+size = Vector2(5, 2)
 
 [node name="Level1" type="Node3D"]
 
@@ -196,6 +221,39 @@ skeleton = NodePath("../MeshInstance3D2")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Area1/Section2/SignTest/Thingy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.220832, -0.0578237, 0)
 mesh = SubResource("CylinderMesh_f7man")
+
+[node name="Basic Block" type="Node3D" parent="Area1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6684, 0, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="Area1/Basic Block"]
+mesh = SubResource("BoxMesh_n5i3h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Area1/Basic Block/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area1/Basic Block/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_j0kny")
+
+[node name="BackWall" type="MeshInstance3D" parent="Area1/Basic Block"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.15763, -0.968566)
+mesh = SubResource("PlaneMesh_hb2x7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Area1/Basic Block/BackWall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area1/Basic Block/BackWall/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_u76pe")
+
+[node name="FrontWall" type="MeshInstance3D" parent="Area1/Basic Block"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.15763, 0.975712)
+mesh = SubResource("PlaneMesh_hb2x7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Area1/Basic Block/FrontWall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area1/Basic Block/FrontWall/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_xns52")
+
+[node name="ForeGround" type="MeshInstance3D" parent="Area1/Basic Block"]
+transform = Transform3D(0.999999, -0.000202494, -0.00129237, -0.00129238, -4.73559e-05, -0.999999, 0.000202435, 1, -4.76108e-05, 0, 0, 1.0073)
+mesh = SubResource("PlaneMesh_gdde2")
 
 [connection signal="body_entered" from="Area1/Section2/SignTest/Area3DSIgnTest" to="Area1/Section2/SignTest" method="_on_area_3ds_ign_test_body_entered"]
 [connection signal="body_exited" from="Area1/Section2/SignTest/Area3DSIgnTest" to="Area1/Section2/SignTest" method="_on_area_3ds_ign_test_body_exited"]
