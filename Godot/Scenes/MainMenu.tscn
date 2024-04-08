@@ -60,7 +60,7 @@ anchor_bottom = 0.5
 offset_left = -478.0
 offset_top = -116.0
 offset_right = -43.0
-offset_bottom = 40.0
+offset_bottom = 84.0
 grow_horizontal = 0
 grow_vertical = 2
 color = Color(0.494118, 0.494118, 0.494118, 1)
@@ -74,17 +74,37 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -74.0
+offset_top = -89.0
 offset_right = 214.0
-offset_bottom = 74.0
+offset_bottom = 89.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Controls:
 Movement: wasd
 Shift: Dash
 left Ctrl: Ground Slam
+F: Interact
 Esc: Pause Menu
 Left Click and Right Click: Debug camera movement
 "
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = -81.0
+offset_right = 132.0
+offset_bottom = 77.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Level1" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level 1 WIP"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]

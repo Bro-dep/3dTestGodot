@@ -84,6 +84,7 @@ text = "Controls:
 Movement: wasd
 Shift: Dash
 left Ctrl: Ground Slam
+F: Interact
 Esc: Pause Menu
 Left Click and Right Click: Debug camera movement
 "

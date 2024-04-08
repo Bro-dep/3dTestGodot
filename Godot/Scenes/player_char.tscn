@@ -39,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="PlayerSpringArm" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, 0, 1, 0)
 top_level = true
+collision_mask = 2
 shape = SubResource("SphereShape3D_7xwxk")
 spring_length = 8.0
 script = ExtResource("4_16q6s")
