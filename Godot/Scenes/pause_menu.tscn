@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2dehisq8risa"]
+[gd_scene load_steps=5 format=3 uid="uid://d2dehisq8risa"]
 
 [ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_tcy6l"]
 
 [sub_resource type="Theme" id="Theme_b2pha"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_rhem0"]
 default_font_size = 50
 
 [sub_resource type="Theme" id="Theme_om3k3"]
@@ -45,6 +48,11 @@ layout_mode = 2
 theme = SubResource("Theme_b2pha")
 text = "Resume"
 
+[node name="MainMenu" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rhem0")
+text = "Return To Main Menu"
+
 [node name="ButtonQuit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_om3k3")
@@ -57,10 +65,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -468.0
-offset_top = -244.0
-offset_right = -33.0
-offset_bottom = -68.0
+offset_left = -450.0
+offset_top = -317.0
+offset_right = -15.0
+offset_bottom = -146.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_vertical = 4
@@ -75,9 +83,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -77.0
+offset_top = -86.5
 offset_right = 214.0
-offset_bottom = 77.0
+offset_bottom = 86.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Controls:
@@ -90,4 +98,5 @@ Left Click and Right Click: Debug camera movement
 "
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonResume" to="." method="_on_button_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

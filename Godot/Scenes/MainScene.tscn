@@ -1,9 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://bw8pptkw0tfbh"]
+[gd_scene load_steps=34 format=3 uid="uid://bw8pptkw0tfbh"]
 
 [ext_resource type="PackedScene" uid="uid://clt2howwt3sbi" path="res://Scenes/player_char.tscn" id="1_kydry"]
 [ext_resource type="PackedScene" uid="uid://civwuvxmk5rti" path="res://Scenes/scene_manager.tscn" id="2_rxgyx"]
 [ext_resource type="Texture2D" uid="uid://crxqykkyk1sjy" path="res://Images/ScChar.png" id="3_chd1p"]
-[ext_resource type="Texture2D" uid="uid://c6k7m340uva2y" path="res://Images/Smile.png" id="4_8ai4m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1tkc"]
 sky_top_color = Color(0.368627, 0.596078, 0.760784, 1)
@@ -96,7 +95,6 @@ material = SubResource("StandardMaterial3D_647ka")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5lol"]
 transparency = 1
-albedo_texture = ExtResource("4_8ai4m")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5l8pr"]
 material = SubResource("StandardMaterial3D_v5lol")
