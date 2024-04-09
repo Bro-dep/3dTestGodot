@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dg7gqicdbwdkl"]
+[gd_scene load_steps=4 format=3 uid="uid://dg7gqicdbwdkl"]
 
-[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_ls8or"]
+[ext_resource type="Script" path="res://Scenes/MainMenu.gd" id="1_crpwr"]
+[ext_resource type="Texture2D" uid="uid://chav42ybwlfpq" path="res://Images/SkyTile.png" id="2_pyjr6"]
+
+[sub_resource type="Theme" id="Theme_srvli"]
+default_font_size = 50
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,31 +13,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ls8or")
+script = ExtResource("1_crpwr")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.376471, 0.498039, 0.815686, 1)
-
-[node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -54.5
-offset_top = -142.0
-offset_right = 54.5
-offset_bottom = -86.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "MainMenu"
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_pyjr6")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -50,4 +36,114 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play"
 
+[node name="Controls" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -464.0
+offset_top = -226.0
+offset_right = -29.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Controls"]
+light_mask = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -89.0
+offset_right = 214.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls:
+Movement: wasd
+Shift: Dash
+left Ctrl: Ground Slam
+F: Interact
+Esc: Pause Menu
+Left Click and Right Click: Debug camera movement
+"
+
+[node name="Levels" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = -81.0
+offset_right = 132.0
+offset_bottom = 77.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Levels"]
+layout_mode = 2
+
+[node name="Levels" type="Button" parent="Levels/VBoxContainer"]
+layout_mode = 2
+text = "Levels
+"
+
+[node name="3d Test" type="Button" parent="Levels/VBoxContainer"]
+layout_mode = 2
+text = "3D Test
+"
+
+[node name="Level1" type="Button" parent="Levels/VBoxContainer"]
+layout_mode = 2
+text = "Level 1 WIP"
+
+[node name="Title" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.652
+offset_top = -145.17
+offset_right = 194.652
+offset_bottom = -56.83
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Title"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.5
+offset_top = -39.5
+offset_right = 190.5
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.513726, 0.513726, 0.513726, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/ColorRect"]
+layout_mode = 2
+offset_right = 381.0
+offset_bottom = 79.0
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Title/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_srvli")
+text = "Reach the Stars"
+fit_content = true
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Levels/VBoxContainer/3d Test" to="." method="_on_d_test_pressed"]
+[connection signal="pressed" from="Levels/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]

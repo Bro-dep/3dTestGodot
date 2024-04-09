@@ -4,6 +4,8 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 6.0
 
+@export var twoDMode:bool
+
 @onready var dashMesh = $"Dash_Ind"
 @onready var usedDashMesh = $"Dash_IndUsed"
 @onready var playerSelf = self
@@ -13,6 +15,7 @@ const JUMP_VELOCITY = 6.0
 @onready var wallJumpTimer = $"WallJumpTimer"
 @onready var moveLockTimer = $"LockMove"
 @onready var model = $"CharModel"
+@onready var pause_Menu = $PauseMenu
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -66,38 +69,44 @@ func _physics_process(delta):
 
 	
 	#rotates camera Debug
-	if Input.is_action_just_pressed("CamLeft"):
-		held = true
-		#print("CamLeftPressed")
-		#print(playerSelf.get_rotation())
-		var rota = Vector3(playerSelf.rotation_degrees)
-		rota.y = rota.y + 90
-		print(rota)
-		playerSelf.set_rotation_degrees(rota)
-	
-	if Input.is_action_just_pressed("CamRight"):
-		held = true
-		#print("CamLeftPressed")
-		#print(playerSelf.get_rotation())
-		var rota = Vector3(playerSelf.rotation_degrees)
-		rota.y = rota.y-90
-		print(rota)
-		playerSelf.set_rotation_degrees(rota)
+	if !twoDMode:
+		if Input.is_action_just_pressed("CamLeft"):
+			held = true
+			#print("CamLeftPressed")
+			#print(playerSelf.get_rotation())
+			var rota = Vector3(playerSelf.rotation_degrees)
+			rota.y = rota.y + 90
+			print(rota)
+			playerSelf.set_rotation_degrees(rota)
+	if !twoDMode:
+		if Input.is_action_just_pressed("CamRight"):
+			held = true
+			#print("CamLeftPressed")
+			#print(playerSelf.get_rotation())
+			var rota = Vector3(playerSelf.rotation_degrees)
+			rota.y = rota.y-90
+			print(rota)
+			playerSelf.set_rotation_degrees(rota)
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
+	if twoDMode:
+		input_dir = Input.get_vector("Left", "Right","disable","disable")
+		if input_dir == Vector2(0,0):
+			model.rotation_degrees.y = self.rotation_degrees.y + 0
+	else:
+		input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
 	input_z = Input.get_axis("Slam","Jump")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction and canMove:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		wallJumpRay.target_position = direction
-		print(faceingZ)
-		print(direction)
-		print(model.rotation_degrees)
+		#print(faceingZ)
+		#print(direction)
+		#print(model.rotation_degrees)
 		if faceingZ:
-			print("facingZCode")
+			#print("facingZCode")
 			if direction.x == 1:
 				model.rotation_degrees.y = self.rotation_degrees.y + 90
 			if direction.x == -1:
@@ -119,7 +128,7 @@ func _physics_process(delta):
 				#print("backLeft")
 				model.rotation_degrees.y = self.rotation_degrees.y + 315
 		elif !faceingZ:
-			print("NotfacingZCode")
+			#print("NotfacingZCode")
 			if direction.x == 1:
 				model.rotation_degrees.y = self.rotation_degrees.y + 270
 			if direction.x == -1:
@@ -140,7 +149,10 @@ func _physics_process(delta):
 			elif direction.x < 0 and direction.z > 0:
 				print("backLeft")
 				model.rotation_degrees.y = self.rotation_degrees.y + 135'
-	
+		if twoDMode:
+			if direction.x == 0:
+				model.rotation_degrees.y = self.rotation_degrees.y + 90
+		
 		if Input.is_action_just_pressed("Dash") and dashCooldown:
 			dashing = true
 			canMove = false
@@ -211,6 +223,11 @@ func _physics_process(delta):
 		if wallJumpTimer.wait_time > 0:
 			velocity.x += lerp(velocity.x,checkRayCast().x * 5,1)
 			velocity.z += lerp(velocity.z,checkRayCast().z * 5,1)
+	#Wall Slide
+	if Input.is_action_pressed("Left") and is_on_wall() and !Input.is_action_just_pressed("Jump"):
+		velocity.y = -2
+	if Input.is_action_pressed("Right") and is_on_wall() and !Input.is_action_just_pressed("Jump"):
+		velocity.y = -2
 	#Double Jump
 	if Input.is_action_just_pressed("Jump") and doubleJump and slamTimer.is_stopped() and !canWallJump:
 		print("doubleJump")
@@ -221,6 +238,11 @@ func _physics_process(delta):
 		canHoldJump = true
 	if is_on_floor() and slamJump and slamTimer.is_stopped():
 		slamTimer.start()
+	
+	#PauseMenu
+	if Input.is_action_just_pressed("Esc"):
+		pause_Menu.pauseMenu()
+	
 	
 	move_and_slide()
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://bw8pptkw0tfbh"]
+[gd_scene load_steps=34 format=3 uid="uid://bw8pptkw0tfbh"]
 
 [ext_resource type="PackedScene" uid="uid://clt2howwt3sbi" path="res://Scenes/player_char.tscn" id="1_kydry"]
 [ext_resource type="PackedScene" uid="uid://civwuvxmk5rti" path="res://Scenes/scene_manager.tscn" id="2_rxgyx"]
+[ext_resource type="Texture2D" uid="uid://crxqykkyk1sjy" path="res://Images/ScChar.png" id="3_chd1p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g1tkc"]
 sky_top_color = Color(0.368627, 0.596078, 0.760784, 1)
@@ -85,6 +86,18 @@ size = Vector3(16.0828, 29.8324, 6.07983)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nxp24"]
 size = Vector3(4.50687, 1.03055, 38.2299)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_647ka"]
+albedo_texture = ExtResource("3_chd1p")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_20w7d"]
+material = SubResource("StandardMaterial3D_647ka")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5lol"]
+transparency = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5l8pr"]
+material = SubResource("StandardMaterial3D_v5lol")
 
 [node name="Main Scene" type="Node3D"]
 
@@ -342,6 +355,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83202, 0.340042, 15.905)
 shape = SubResource("BoxShape3D_nxp24")
 
 [node name="Scene Manager" parent="." instance=ExtResource("2_rxgyx")]
+
+[node name="Image test" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Image test"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 15.4698, 5.44168, -18.8306)
+mesh = SubResource("PlaneMesh_20w7d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Image test"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 17.8953, 5.44168, -18.8306)
+mesh = SubResource("PlaneMesh_5l8pr")
 
 [connection signal="body_entered" from="Camera Collisions/Area3D1" to="PlayerChar" method="_on_area_3d_1_body_entered"]
 [connection signal="body_entered" from="Camera Collisions/Area3D2" to="PlayerChar" method="_on_area_3d_2_body_entered"]
