@@ -26,4 +26,5 @@ func _on_button_resume_pressed():
 func _on_button_quit_pressed():
 	get_tree().quit()
 func _on_main_menu_pressed():
+	Engine.time_scale = 1
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")

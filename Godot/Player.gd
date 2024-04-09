@@ -223,6 +223,11 @@ func _physics_process(delta):
 		if wallJumpTimer.wait_time > 0:
 			velocity.x += lerp(velocity.x,checkRayCast().x * 5,1)
 			velocity.z += lerp(velocity.z,checkRayCast().z * 5,1)
+	#Wall Slide
+	if Input.is_action_pressed("Left") and is_on_wall() and !Input.is_action_just_pressed("Jump"):
+		velocity.y = -2
+	if Input.is_action_pressed("Right") and is_on_wall() and !Input.is_action_just_pressed("Jump"):
+		velocity.y = -2
 	#Double Jump
 	if Input.is_action_just_pressed("Jump") and doubleJump and slamTimer.is_stopped() and !canWallJump:
 		print("doubleJump")
